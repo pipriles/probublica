@@ -236,7 +236,7 @@ def main():
     ]
     cdf = pd.DataFrame(results)
     cdf.drop_duplicates(inplace=True)
-    cdf[cols]
+    cdf = cdf[cols]
     
     print('Writing results to disk')
     cdf.to_csv('./results.csv', index=None)
