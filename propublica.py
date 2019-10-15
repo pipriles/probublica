@@ -72,11 +72,15 @@ def extract_data(html):
     name = 'Nonprofit Tax Code Designation'
     pattern = re.compile(r'^{}'.format(name))
     elem = soup.find('strong', string=pattern)
-    text = elem.get_text(strip=True)
-    data[name] = text.rpartition(' ')[-1]
+    if elem:
+        text = elem.get_text(strip=True) if elem else None
+        text = text.rpartition(' ')[-1]
+    else:
+        text = None
+    data[name] = text
 
     a = soup.find('a', class_='guidestar')
-    data['Guidestar URL'] = a['href']
+    data['Guidestar URL'] = a.get('href') if a else None
     
     elems = soup.select('.single-filing')
     records = [ parse_year_card(e) for e in elems ]
@@ -161,7 +165,7 @@ def scrape_companies(size=None, offset=0):
     try:
         rf = pd.read_csv('./results.csv')
         results = rf.to_dict(orient='records')
-        scraped = set([ u for u in rf.URL ])
+        scraped = set(rf.URL)
     except FileNotFoundError:
         print('File not found...')
         scraped = set()

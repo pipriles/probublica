@@ -107,7 +107,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Ignore these folders
 .ipynb_checkpoints
+chunks
+results
+
+hosts.txt
 
 *.exe
 *.csv
