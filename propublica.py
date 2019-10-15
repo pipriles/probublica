@@ -238,7 +238,7 @@ def main():
     cdf.drop_duplicates(inplace=True)
     cdf = cdf[cols]
     
-    print('Writing results to disk')
+    print('\nWriting results to disk')
     cdf.to_csv('./results.csv', index=None)
         
 if __name__ == '__main__':
